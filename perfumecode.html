@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blue Sea | Canva Ad Planner</title>
+<link rel="preconnect" href="[https://fonts.googleapis.com](https://fonts.googleapis.com)">
+<link rel="preconnect" href="[https://fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
+<link href="[https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=DM+Sans:wght@300;400&family=Syncopate:wght@400;700&display=swap](https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=DM+Sans:wght@300;400&family=Syncopate:wght@400;700&display=swap)" rel="stylesheet">
+<style>
+:root {
+--bg-black: #020D1A;
+--navy: #071E34;
+--ocean-blue: #0A3A5C;
+--azure: #1565A8;
+--sky-blue: #3A9FD6;
+--sea-foam: #A8D8F0;
+--gold: #C9A96E;
+--white: #FFFFFF;
+--transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+body {
+background-color: var(--bg-black);
+color: var(--white);
+font-family: 'DM Sans', sans-serif;
+line-height: 1.6;
+overflow-x: hidden;
+}
+/* Typography Defaults */
+h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; }
+.label { font-family: 'Syncopate', sans-serif; text-transform: uppercase; letter-spacing: 0.2em; font-size: 0.75rem; color: var(--gold); }
+/* Layout */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+section { padding: 6rem 0; opacity: 0; transform: translateY(30px); transition: var(--transition); }
+section.visible { opacity: 1; transform: translateY(0); }
+/* Hero Section */
+.hero {
+height: 80vh;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+text-align: center;
+background: radial-gradient(circle at center, var(--ocean-blue) 0%, var(--bg-black) 70%);
+position: relative;
+}
+.hero h1 { font-size: 4.5rem; margin-bottom: 1rem; }
+.hero p { font-family: 'Syncopate', sans-serif; letter-spacing: 0.4em; color: var(--sea-foam); font-size: 0.9rem; }
+.wave-container {
+position: absolute;
+bottom: 0;
+width: 100%;
+line-height: 0;
+}
+/* Slide Cards */
+.slide-grid { display: grid; gap: 2rem; margin-top: 3rem; }
+.slide-card {
+display: flex;
+background: var(--navy);
+border: 1px solid rgba(201, 169, 110, 0.1);
+border-radius: 4px;
+overflow: hidden;
+transition: var(--transition);
+cursor: pointer;
+}
+.slide-card:hover {
+transform: translateX(10px);
+border-color: var(--gold);
+box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+.slide-num {
+background: var(--ocean-blue);
+color: var(--gold);
+padding: 2rem 1.5rem;
+font-family: 'Syncopate', sans-serif;
+font-weight: 700;
+display: flex;
+align-items: flex-start;
+border-right: 1px solid rgba(201, 169, 110, 0.2);
+}
+.slide-content { padding: 2rem; flex-grow: 1; position: relative; }
+.slide-content h3 { font-size: 1.8rem; margin-bottom: 1rem; color: var(--white); }
+.slide-visual-desc { color: var(--sea-foam); font-size: 0.85rem; margin-bottom: 1.5rem; border-left: 2px solid var(--azure); padding-left: 1rem; }
+.slide-tip { font-size: 0.8rem; color: rgba(255,255,255,0.5); margin-top: 2rem; font-style: italic; }
+/* Fragrance Notes */
+.notes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem; }
+.note-item span { display: block; font-family: 'Syncopate', sans-serif; font-size: 0.6rem; color: var(--gold); }
+/* Swatches */
+.swatch-bar { display: flex; height: 100px; margin-top: 2rem; border-radius: 4px; overflow: hidden; }
+.swatch {
+flex: 1;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: var(--transition);
+position: relative;
+cursor: crosshair;
+}
+.swatch:hover { flex: 3; }
+.swatch span {
+opacity: 0;
+font-family: 'Syncopate', sans-serif;
+font-size: 0.7rem;
+text-align: center;
+pointer-events: none;
+transition: 0.3s;
+}
+.swatch:hover span { opacity: 1; }
+/* Copy Vault */
+.copy-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+.copy-card {
+padding: 2rem;
+background: linear-gradient(135deg, var(--navy) 0%, var(--bg-black) 100%);
+border: 1px solid rgba(255,255,255,0.05);
+transition: var(--transition);
+}
+.copy-card:hover { border-color: var(--sky-blue); }
+.copy-card p { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; margin-bottom: 1rem; }
+/* Checklist */
+.checklist { list-style: none; }
+.check-item {
+display: flex;
+align-items: center;
+padding: 1rem;
+border-bottom: 1px solid rgba(255,255,255,0.1);
+cursor: pointer;
+}
+.check-item input { margin-right: 1.5rem; accent-color: var(--gold); width: 18px; height: 18px; }
+.check-item:hover { background: rgba(255,255,255,0.02); }
+/* Pro Tip */
+.pro-tip {
+border-left: 4px solid var(--gold);
+background: var(--navy);
+padding: 2rem;
+margin-top: 4rem;
+}
+/* Buttons & Badges */
+.cta-btn {
+background: linear-gradient(90deg, var(--azure), var(--sky-blue));
+color: white;
+padding: 0.8rem 1.5rem;
+border: none;
+font-family: 'Syncopate', sans-serif;
+font-size: 0.7rem;
+cursor: pointer;
+display: inline-block;
+margin-top: 1rem;
+}
+.pill-row { display: flex; gap: 10px; margin-top: 1rem; }
+.pill {
+border: 1px solid var(--gold);
+padding: 4px 12px;
+border-radius: 20px;
+font-size: 0.7rem;
+text-transform: uppercase;
+}
+@media (max-width: 768px) {
+.slide-card { flex-direction: column; }
+.slide-num { padding: 1rem; border-right: none; border-bottom: 1px solid rgba(201,169,110,0.2); }
+.hero h1 { font-size: 2.5rem; }
+}
+</style>
+</head>
+<body>
+<section class="hero visible">
+<div class="container">
+<span class="label">Creative Strategy</span>
+<h1>The Blue Sea Campaign</h1>
+<p>Visual Planner & Asset Blueprint</p>
+</div>
+<div class="wave-container">
+<svg viewBox="0 0 1440 120" fill="none" xmlns="[http://www.w3.org/2000/svg](http://www.w3.org/2000/svg)">
+<path d="M0 30L60 25C120 20 240 10 360 15C480 20 600 40 720 50C840 60 960 60 1080 50C1200 40 1320 20 1380 10L1440 0V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0V30Z" fill="#071E34"/>
+</svg>
+</div>
+</section>
+<div class="container">
+<section id="slides">
+<span class="label">Storyboard</span>
+<div class="slide-grid">
+<div class="slide-card">
+<div class="slide-num">01</div>
+<div class="slide-content">
+<div class="slide-visual-desc">Full-bleed underwater concept · Duotone Navy/Sky</div>
+<h3>"Born of the sea."</h3>
+<span class="label" style="color: var(--gold)">BLUE SEA · EAU DE PARFUM</span>
+<p class="slide-tip">Layout: Text in lower third with dark gradient overlay for depth.</p>
+</div>
+</div>
+<div class="slide-card">
+<div class="slide-num">02</div>
+<div class="slide-content">
+<div class="slide-visual-desc">Split layout · Bottle close-up vs Ocean texture</div>
+<h3>"Salt air. Dark tides. A whisper of white florals."</h3>
+<div class="notes-grid">
+<div class="note-item"><span>TOP</span>Sea Salt, Bergamot</div>
+<div class="note-item"><span>HEART</span>Jasmine, Water Lily</div>
+<div class="note-item"><span>BASE</span>Driftwood, Amber</div>
+</div>
+<p class="slide-tip">Design: 15% white semi-transparent box overlay.</p>
+</div>
+</div>
+<div class="slide-card">
+<div class="slide-num">03</div>
+<div class="slide-content">
+<div class="slide-visual-desc">Minimalist social proof · High white space</div>
+<p style="font-family: 'Cormorant Garamond'; font-size: 1.4rem; font-style: italic;">
+"It's like wearing the ocean itself — elegant, deep, and completely unforgettable."
+</p>
+<p style="font-size: 0.8rem; margin: 10px 0;">— Verified Buyer</p>
+<div style="color: var(--gold); letter-spacing: 2px;">★★★★★</div>
+<span class="label" style="font-size: 0.6rem;">4,800+ five-star reviews</span>
+</div>
+</div>
+<div class="slide-card">
+<div class="slide-num">04</div>
+<div class="slide-content">
+<div class="slide-visual-desc">Lifestyle flat-lay · Marble & Ocean view</div>
+<h3>"For those who live for open water."</h3>
+<div class="pill-row">
+<div class="pill">🌊 Long-lasting</div>
+<div class="pill">🌿 Cruelty-free</div>
+<div class="pill">✦ Unisex</div>
+</div>
+</div>
+</div>
+<div class="slide-card">
+<div class="slide-num">05</div>
+<div class="slide-content">
+<div class="slide-visual-desc">Hero shot · Center focus</div>
+<h3>"Limited Edition — 100ml."</h3>
+<div style="margin: 1rem 0;">
+<span style="text-decoration: line-through; opacity: 0.5; margin-right: 10px;">$140</span>
+<span style="font-weight: bold; font-size: 1.2rem;">$112</span>
+<span class="pill" style="background: var(--gold); color: var(--bg-black); margin-left: 10px; border: none; font-weight: bold;">SAVE 20%</span>
+</div>
+<button class="cta-btn">SHOP BLUE SEA →</button>
+</div>
+</div>
+<div class="slide-card">
+<div class="slide-num">06</div>
+<div class="slide-content" style="text-align: center;">
+<div class="slide-visual-desc">The Brand Closer</div>
+<div style="border-top: 1px solid var(--gold); border-bottom: 1px solid var(--gold); padding: 1rem 0; margin: 1rem 0;">
+<h2 style="font-family: 'Syncopate'; font-weight: 700; font-style: normal; letter-spacing: 0.5em;">BLUE SEA</h2>
+</div>
+<p style="font-family: 'Cormorant Garamond';">The sea, bottled.</p>
+<p class="label" style="color: var(--sky-blue); margin-top: 1.5rem; font-size: 0.6rem;">WWW.BLUESEAOFFICIAL.COM</p>
+</div>
+</div>
+</div>
+</section>
+<section id="palette">
+<span class="label">Brand Colors</span>
+<div class="swatch-bar">
+<div class="swatch" style="background: #020D1A;"><span>Ocean Black
+#020D1A</span></div>
+<div class="swatch" style="background: #071E34;"><span>Navy
+#071E34</span></div>
+<div class="swatch" style="background: #0A3A5C;"><span>Ocean Blue
+#0A3A5C</span></div>
+<div class="swatch" style="background: #1565A8;"><span>Azure
+#1565A8</span></div>
+<div class="swatch" style="background: #3A9FD6;"><span>Sky Blue
+#3A9FD6</span></div>
+<div class="swatch" style="background: #A8D8F0; color: #020D1A;"><span>Sea Foam
+#A8D8F0</span></div>
+<div class="swatch" style="background: #C9A96E; color: #020D1A;"><span>Gold Accent
+#C9A96E</span></div>
+</div>
+</section>
+<section id="typography">
+<span class="label">Typography System</span>
+<div style="margin-top: 2rem;">
+<div style="margin-bottom: 3rem;">
+<span class="label" style="color: rgba(255,255,255,0.4)">Headlines — Cormorant Garamond Light Italic</span>
+<h2 style="font-size: 3rem; margin-top: 1rem;">The Depth of Freedom.</h2>
+</div>
+<div style="margin-bottom: 3rem;">
+<span class="label" style="color: rgba(255,255,255,0.4)">Navigation/Labels — Syncopate Bold</span>
+<p class="label" style="font-size: 1.2rem; margin-top: 1rem;">EXPLORE THE UNKNOWN</p>
+</div>
+<div>
+<span class="label" style="color: rgba(255,255,255,0.4)">Body — DM Sans Light</span>
+<p style="font-size: 1.1rem; max-width: 600px; margin-top: 1rem; font-weight: 300;">Crafted for the modern wanderer, Blue Sea captures the raw essence of the Atlantic coast in a bottle of hand-blown glass.</p>
+</div>
+</div>
+</section>
+<section id="copy">
+<span class="label">Copy Vault</span>
+<div class="copy-grid" style="margin-top: 2rem;">
+<div class="copy-card">
+<p>"Close your eyes. You're already there."</p>
+<span class="label" style="font-size: 0.6rem;">Emotion Hook</span>
+</div>
+<div class="copy-card">
+<p>"A scent for those who never stop moving."</p>
+<span class="label" style="font-size: 0.6rem;">Identity Hook</span>
+</div>
+<div class="copy-card">
+<p>"What does the sea smell like at midnight?"</p>
+<span class="label" style="font-size: 0.6rem;">Intrigue Hook</span>
+</div>
+<div class="copy-card">
+<p>"The sea, bottled."</p>
+<span class="label" style="font-size: 0.6rem;">Luxury Minimal</span>
+</div>
+<div class="copy-card">
+<p>"Only 200 bottles. One for you?"</p>
+<span class="label" style="font-size: 0.6rem;">Scarcity CTA</span>
+</div>
+<div class="copy-card">
+<p>"Salt. Silence. Something unforgettable."</p>
+<span class="label" style="font-size: 0.6rem;">Sensory Poem</span>
+</div>
+</div>
+</section>
+</li>
+
+</div>
+<div class="pro-tip">
+<span class="label" style="color: var(--gold);">Why prefer us</span>
+<p style="margin-top: 1rem; font-size: 0.95rem;">All gender <strong> Men</strong> or <strong>Women</strong> , <br>
+  No allergies since all inputs are extracted from nature.</p>
+</div>
+</section>
+<footer style="padding: 4rem 0; text-align: center; opacity: 0.4; font-size: 0.7rem;">
+<p class="label">Blue Sea Ad Planner by wyclif© 2026 | Proprietary Design System</p>
+</footer>
+</div>
+<script>
+const observerOptions = {
+threshold: 0.1
+};
+const observer = new IntersectionObserver((entries) => {
+entries.forEach(entry => {
+if (entry.isIntersecting) {
+entry.target.classList.add('visible');
+}
+});
+}, observerOptions);
+document.querySelectorAll('section').forEach(section => {
+observer.observe(section);
+});
+// Interactive Checkboxes
+document.querySelectorAll('.check-item').forEach(item => {
+item.addEventListener('click', (e) => {
+const checkbox = item.querySelector('input');
+if (e.target !== checkbox) {
+checkbox.checked = !checkbox.checked;
+}
+});
+});
+</script>
+</body>
+</html>
